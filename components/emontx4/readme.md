@@ -6,10 +6,12 @@
 external_components:
   - source:
       type: git
-      url: https://github.com/borpin/esphome_components
-      # ref: bpo-dev # for the latest version but that might break things!
+      url: https://github.com/openenergymonitor/esphome_components
+      # you can use the dvelopment repo from borpin
+      # url: https://github.com/borpin/esphome_components
+      # ref: bpo-dev # for the very latest version but that might break things (I'm working in this repo)!
     components: [ emontx4 ]
-    refresh: 0s # ensure a fresh pull from GitHub
+    refresh: 0s # ensure a fresh pull from GitHub - only required if you think things will have changed.
 
 # Enable logging
 logger:
@@ -30,10 +32,10 @@ sensor:
     message_number:
       id: msg
       name: Message Number
-    p1_power:
+    p1:
       id: p1
       name: Kitchen Power
-    e1_energy:
+    e1:
       id:e1
       name: Kitchen Energy
 ```
@@ -43,10 +45,9 @@ The following sensors are currently available
 ```
 message_number
 vrms
-p1_power
-p2_power
-p3_power
-e1_energy
-e2_energy
-e3_energy
+pN -- where N is 1-12
+eN -- where N is 1-12
+pulse_count
+pulse_energy
+tN -- where N is 1-3
 ```
