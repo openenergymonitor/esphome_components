@@ -35,6 +35,10 @@ AUTO_LOAD = ["json"]
 emontx4_ns = cg.esphome_ns.namespace("emontx4")
 Emontx4Component = emontx4_ns.class_("Emontx4Component", uart.UARTDevice, cg.Component)
 
+Emontx4OnDataTrigger = emontx4_ns.class_(
+    "Emontx4OnDataTrigger", automation.Trigger.template()
+)
+
 CONF_MSG_NUMBER = "message_number"
 CONF_VRMS = "vrms"
 CONF_P1 = "p1"
@@ -68,15 +72,15 @@ CONF_T2 = "t2"
 CONF_T3 = "t3"
 CONF_ON_DATA = "on_data"
 
-Emontx4OnDataTrigger = emontx4_ns.class_(
-    "Emontx4OnDataTrigger", automation.Trigger.template()
-)
-
 CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(Emontx4Component),
-
+            cv.Optional(CONF_ON_DATA): automation.validate_automation(
+                    {
+                        cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(Emontx4OnDataTrigger),
+                    }
+            ),
             cv.Optional(CONF_MSG_NUMBER): sensor.sensor_schema(
                 unit_of_measurement=UNIT_EMPTY,
                 # icon=ICON_EMPTY,
@@ -262,11 +266,6 @@ CONFIG_SCHEMA = (
                 device_class=DEVICE_CLASS_TEMPERATURE,
                 state_class=STATE_CLASS_MEASUREMENT,
                 accuracy_decimals=1,
-            ),
-            cv.Optional(CONF_ON_DATA): automation.validate_automation(
-                    {
-                        cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(Emontx4OnDataTrigger),
-                    }
             ),
         }
     )
