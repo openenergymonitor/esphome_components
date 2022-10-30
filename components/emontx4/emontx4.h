@@ -90,10 +90,7 @@ class Emontx4Component : public Component, public uart::UARTDevice {
 
 class Emontx4OnDataTrigger : public Trigger<> {
   public:
-    // void process() { this->trigger(); }
     void Emontx4OnDataProcess() { this->trigger();}
-  
-  // Emontx4Trigger
   };
 }  // namespace emontx4
 }  // namespace esphome

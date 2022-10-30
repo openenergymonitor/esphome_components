@@ -282,6 +282,10 @@ async def to_code(config):
     await cg.register_component(var, config)
     await uart.register_uart_device(var, config)
 
+    for conf in config.get(CONF_ON_DATA, []):
+        trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
+        await automation.build_automation(trigger, [], conf)
+
     if CONF_MSG_NUMBER in config:
         sens = await sensor.new_sensor(config[CONF_MSG_NUMBER])
         cg.add(var.set_message_number_sensor(sens))
