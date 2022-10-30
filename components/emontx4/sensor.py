@@ -1,6 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import sensor, uart, json, automation
+from esphome.components import sensor, uart, json
+from esphome import automation
 from esphome.const import (
     CONF_ID,
     UNIT_VOLT,
