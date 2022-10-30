@@ -76,11 +76,12 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(Emontx4Component),
-            cv.Optional(CONF_ON_DATA): automation.validate_automation(
-                    {
-                        cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(Emontx4OnDataTrigger),
-                    }
-            ),
+            cv.Optional(CONF_ON_DATA): automation.validate_automation(single=True),
+            # cv.Optional(CONF_ON_DATA): automation.validate_automation(
+            #         {
+            #             cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(Emontx4OnDataTrigger),
+            #         }
+            # ),
             cv.Optional(CONF_MSG_NUMBER): sensor.sensor_schema(
                 unit_of_measurement=UNIT_EMPTY,
                 # icon=ICON_EMPTY,
