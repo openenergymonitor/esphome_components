@@ -191,7 +191,7 @@ void Emontx4Component::parse_json_data_(){
         if (t3_sensor_ != nullptr) {
             t3_sensor_->publish_state(float(json_data["T3"])*0.1);
         }
-        this->done_trigger_->trigger();
+        // this->get_done_trigger_->trigger();
     });
 }
 
