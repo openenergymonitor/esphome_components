@@ -68,7 +68,7 @@ void Emontx4Component::handle_char_(uint8_t c) {
   if (c == '\n') {
     std::string s(this->rx_message_.begin(), this->rx_message_.end());
     char x = s[0];
-    if (x == "{")
+    if (x == '{')
     {
         ESP_LOGD(TAG, "JSON string received: %s", s.c_str());
         this->json_string_ = s;
