@@ -44,15 +44,15 @@ void Emontx4Component::dump_config() {
   LOG_SENSOR("  ", "T3", t3_sensor_);
 }
 
-void Emontx4Component::setup() {
-  do { } while ( !(this->available()) );
-//   if (this->available()) {
-    this->write_str("l");
-    ESP_LOGD(TAG, "Write list command");
-//   }
-}
+// void Emontx4Component::setup() {
+//   do { } while ( !(this->available()) );
+// //   if (this->available()) {
+//     this->write_str("l");
+//     ESP_LOGD(TAG, "Write list command");
+// //   }
+// }
 
-// void Emontx4Component::loop() {
+void Emontx4Component::loop() {
     // if (this->first_run)
     // {
     //     this->write_str("l");
