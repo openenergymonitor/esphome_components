@@ -1,6 +1,6 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import sensor, uart, json
+from esphome.components import sensor, uart, json, automation
 from esphome.const import (
     CONF_ID,
     UNIT_VOLT,
@@ -67,6 +67,9 @@ CONF_T2 = "t2"
 CONF_T3 = "t3"
 CONF_ON_DATA = "on_data"
 
+Emontx4OnDataTrigger = emontx4_ns.class_(
+    "Emontx4OnDataTrigger", automation.Trigger.template()
+)
 
 CONFIG_SCHEMA = (
     cv.Schema(
@@ -259,11 +262,11 @@ CONFIG_SCHEMA = (
                 state_class=STATE_CLASS_MEASUREMENT,
                 accuracy_decimals=1,
             ),
-            # cv.Optional(CONF_ON_DATA): automation.validate_automation(
-            #         {
-            #             cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(nfc.NfcOnTagTrigger),
-            #         }
-            # ),
+            cv.Optional(CONF_ON_DATA): automation.validate_automation(
+                    {
+                        cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(Emontx4OnDataTrigger),
+                    }
+            ),
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
