@@ -60,11 +60,11 @@ void Emontx4Component::loop() {
     // }
 
     while (this->available()) {
-        if (this->first_run)
+        if (first_run)
         {
             this->write_str("l");
             ESP_LOGD(TAG, "Write list command");
-            this->first_run = false;
+            first_run = false;
         }
 
         uint8_t c;
