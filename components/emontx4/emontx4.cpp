@@ -52,10 +52,21 @@ void Emontx4Component::setup() {
 }
 
 void Emontx4Component::loop() {
-    // this->write_str("l");
-    // ESP_LOGD(TAG, "Write list command");
+    if (this->first_run)
+    {
+        this->write_str("l");
+        ESP_LOGD(TAG, "Write list command");
+        this->first_run = false;
+    }
 
     while (this->available()) {
+        if (this->first_run)
+        {
+            this->write_str("l");
+            ESP_LOGD(TAG, "Write list command");
+            this->first_run = false;
+        }
+
         uint8_t c;
         this->read_byte(&c);
         this->handle_char_(c);
