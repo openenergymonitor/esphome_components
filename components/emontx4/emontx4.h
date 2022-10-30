@@ -43,6 +43,8 @@ class Emontx4Component : public Component, public uart::UARTDevice {
     void set_t2_sensor(sensor::Sensor *t2_sensor) { t2_sensor_ = t2_sensor; }
     void set_t3_sensor(sensor::Sensor *t3_sensor) { t3_sensor_ = t3_sensor; }
 
+    Trigger<> *get_done_trigger() const { return done_trigger_; }
+
     void dump_config() override;
     void setup() override;
     void loop() override;
@@ -53,6 +55,8 @@ class Emontx4Component : public Component, public uart::UARTDevice {
     void parse_json_data_();
 
     void handle_char_(uint8_t c);
+    Trigger<> *done_trigger_ = new Trigger<>();
+
     std::vector<uint8_t> rx_message_;
     std::string json_string_;
 
@@ -89,9 +93,13 @@ class Emontx4Component : public Component, public uart::UARTDevice {
     sensor::Sensor *t3_sensor_{nullptr};
 };
 
-class Emontx4OnDataTrigger : public Trigger<> {
-  public:
-    void Emontx4OnDataProcess() { this->trigger();}
-  };
+// class Emontx4OnDataTrigger : public Trigger<float> {
+//  public:
+//   explicit Emontx4OnDataProcess(Number *parent) {
+//     parent->add_on_state_callback([this](float value) { this->trigger(value); });
+//   }
+  // public:
+  //   void Emontx4OnDataProcess() { this->trigger();}
+  // };
 }  // namespace emontx4
 }  // namespace esphome
