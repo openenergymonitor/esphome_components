@@ -35,9 +35,9 @@ AUTO_LOAD = ["json"]
 emontx4_ns = cg.esphome_ns.namespace("emontx4")
 Emontx4Component = emontx4_ns.class_("Emontx4Component", uart.UARTDevice, cg.Component)
 
-Emontx4OnDataTrigger = emontx4_ns.class_(
-    "Emontx4OnDataTrigger", automation.Trigger.template()
-)
+# Emontx4OnDataTrigger = emontx4_ns.class_(
+#     "Emontx4OnDataTrigger", automation.Trigger.template()
+# )
 
 CONF_MSG_NUMBER = "message_number"
 CONF_VRMS = "vrms"
