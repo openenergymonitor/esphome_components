@@ -44,19 +44,22 @@ void Emontx4Component::dump_config() {
 }
 
 void Emontx4Component::setup() {
-    // do { } while ( !condition );  loo
-  if (this->available()) {
+  do { } while ( !(this->available()) );
+//   if (this->available()) {
     this->write_str("l");
     ESP_LOGD(TAG, "Write list command");
-  }
+//   }
 }
 
 void Emontx4Component::loop() {
-  while (this->available()) {
-    uint8_t c;
-    this->read_byte(&c);
-    this->handle_char_(c);
-  }
+    this->write_str("l");
+    ESP_LOGD(TAG, "Write list command");
+
+    while (this->available()) {
+        uint8_t c;
+        this->read_byte(&c);
+        this->handle_char_(c);
+    }
 }
 
 void Emontx4Component::handle_char_(uint8_t c) {
@@ -64,10 +67,15 @@ void Emontx4Component::handle_char_(uint8_t c) {
     return;
   if (c == '\n') {
     std::string s(this->rx_message_.begin(), this->rx_message_.end());
-    ESP_LOGD(TAG, "JSON string received: %s", s.c_str());
-    this->json_string_ = s;
-    // ToDo - add in code looking for nonJSOn Sting and just print to log as INFO.
-    parse_json_data_();
+    if (s[0] == "{")
+    {
+        ESP_LOGD(TAG, "JSON string received: %s", s.c_str());
+        this->json_string_ = s;
+        parse_json_data_();
+    } else
+    {
+        ESP_LOGI(TAG, s.c_str())
+    }
 
     this->rx_message_.clear();
     return;
