@@ -283,9 +283,9 @@ async def to_code(config):
     await uart.register_uart_device(var, config)
 
     if CONF_ON_DATA in config:
-    await automation.build_automation(
-        var.get_done_trigger(), [], config[CONF_ON_DATA]
-    )
+        await automation.build_automation(
+            var.get_done_trigger(), [], config[CONF_ON_DATA]
+        )
     # for conf in config.get(CONF_ON_DATA, []):
     #     trigger = cg.new_Pvariable(conf[CONF_TRIGGER_ID], var)
     #     await automation.build_automation(trigger, [], conf)
