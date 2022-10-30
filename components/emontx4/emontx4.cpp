@@ -7,6 +7,7 @@ namespace emontx4 {
 static const char *TAG = "emontx4";
 
 bool first_run = false;
+std::string startup_text = "";
 
 void Emontx4Component::dump_config() {
   ESP_LOGCONFIG(TAG, "Emontx4:");
@@ -60,12 +61,12 @@ void Emontx4Component::loop() {
     // }
 
     while (this->available()) {
-        if (first_run)
-        {
-            this->write_str("l");
-            ESP_LOGD(TAG, "Write list command");
-            first_run = false;
-        }
+        // if (first_run)
+        // {
+        //     this->write_str("l");
+        //     ESP_LOGD(TAG, "Write list command");
+        //     first_run = false;
+        // }
 
         uint8_t c;
         this->read_byte(&c);
@@ -86,6 +87,7 @@ void Emontx4Component::handle_char_(uint8_t c) {
         parse_json_data_();
     } else
     {
+        startup_text += s;
         ESP_LOGI(TAG, "%s", s.c_str());
     }
 
