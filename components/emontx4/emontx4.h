@@ -44,6 +44,7 @@ class Emontx4Component : public Component, public uart::UARTDevice {
     void set_t3_sensor(sensor::Sensor *t3_sensor) { t3_sensor_ = t3_sensor; }
 
     void dump_config() override;
+    void setup() override;
     void loop() override;
 
     float get_setup_priority() const { return setup_priority::DATA; }

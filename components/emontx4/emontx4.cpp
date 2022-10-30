@@ -6,6 +6,8 @@ namespace emontx4 {
 
 static const char *TAG = "emontx4";
 
+bool first_run = false;
+
 void Emontx4Component::dump_config() {
   ESP_LOGCONFIG(TAG, "Emontx4:");
   LOG_SENSOR("  ", "Message Number", message_number_sensor_);
@@ -39,6 +41,14 @@ void Emontx4Component::dump_config() {
   LOG_SENSOR("  ", "T1", t1_sensor_);
   LOG_SENSOR("  ", "T2", t2_sensor_);
   LOG_SENSOR("  ", "T3", t3_sensor_);
+}
+
+void Emontx4Component::setup() {
+    // do { } while ( !condition );  loo
+  if (this->available()) {
+    this->write_str("l");
+    ESP_LOGD(TAG, "Write list command");
+  }
 }
 
 void Emontx4Component::loop() {
