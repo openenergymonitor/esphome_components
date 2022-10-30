@@ -87,10 +87,10 @@ class Emontx4Component : public Component, public uart::UARTDevice {
     sensor::Sensor *t3_sensor_{nullptr};
 };
 
-// class Emontx4OnDataTrigger {
-//   public:
-//     void process() { this->trigger(); }
-//   };
+class Emontx4OnDataTrigger {
+  public:
+    void process() { this->trigger(); }
+  };
 
 }  // namespace emontx4
 }  // namespace esphome
