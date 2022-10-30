@@ -163,7 +163,7 @@ void Emontx4Component::parse_json_data_(){
             t3_sensor_->publish_state(float(json_data["T3"])*0.1);
         }
         // Emontx4OnDataTrigger::Emontx4OnDataProcess(Emontx4OnDataTrigger);
-        bool result->Emontx4OnDataTrigger::Emontx4OnDataProcess();
+        bool result = Emontx4OnDataTrigger::Emontx4OnDataProcess();
         // TODO Trigger ON_DATA
     });
 }
