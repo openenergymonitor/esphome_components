@@ -93,6 +93,6 @@ class Emontx4OnDataTrigger {
     void process() { this->trigger(); }
   
   // Emontx4Trigger
-
+  };
 }  // namespace emontx4
 }  // namespace esphome
