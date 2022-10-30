@@ -46,7 +46,7 @@ class Emontx4Component : public Component, public uart::UARTDevice {
     Trigger<> *get_done_trigger() const { return done_trigger_; }
 
     void dump_config() override;
-    void setup() override;
+    // void setup() override;
     void loop() override;
 
     float get_setup_priority() const { return setup_priority::DATA; }
