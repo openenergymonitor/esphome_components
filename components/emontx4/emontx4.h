@@ -88,10 +88,10 @@ class Emontx4Component : public Component, public uart::UARTDevice {
     sensor::Sensor *t3_sensor_{nullptr};
 };
 
-class Emontx4OnDataTrigger {
+class Emontx4OnDataTrigger : public Trigger<> {
   public:
     // void process() { this->trigger(); }
-    void process() { }
+    void Emontx4OnDataProcess() { this->trigger();}
   
   // Emontx4Trigger
   };
