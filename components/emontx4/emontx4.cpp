@@ -52,8 +52,8 @@ void Emontx4Component::setup() {
 }
 
 void Emontx4Component::loop() {
-    this->write_str("l");
-    ESP_LOGD(TAG, "Write list command");
+    // this->write_str("l");
+    // ESP_LOGD(TAG, "Write list command");
 
     while (this->available()) {
         uint8_t c;
