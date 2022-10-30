@@ -4,7 +4,7 @@
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/uart/uart.h"
 #include "esphome/components/json/json_util.h"
-// #include "esphome/core/automation.h"
+#include "esphome/core/automation.h"
 
 namespace esphome {
 namespace emontx4 {
