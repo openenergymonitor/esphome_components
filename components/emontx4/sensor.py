@@ -406,7 +406,8 @@ async def to_code(config):
     if CONF_T3 in config:
         sens = await sensor.new_sensor(config[CONF_T3])
         cg.add(var.set_t3_sensor(sens))
-
+    
+    # Trigger definition, must be at the end of 'to_code'
     if CONF_ON_DATA in config:
         await automation.build_automation(
             var.get_done_trigger(), [], config[CONF_ON_DATA]
