@@ -42,7 +42,7 @@ void Emontx4Component::dump_config() {
   LOG_SENSOR("  ", "T1", t1_sensor_);
   LOG_SENSOR("  ", "T2", t2_sensor_);
   LOG_SENSOR("  ", "T3", t3_sensor_);
-//   ESP_LOGI(TAG, startup_text.c_str());
+  ESP_LOGI(TAG, startup_text.c_str());
 }
 
 // void Emontx4Component::setup() {
@@ -88,7 +88,7 @@ void Emontx4Component::handle_char_(uint8_t c) {
     } else { // Startup information
         startup_text = startup_text + s + "\n"; //s.c_str();
         // ESP_LOGI(TAG, "%s", s.c_str());
-        ESP_LOGI(TAG, "%s", startup_text.c_str());
+        // ESP_LOGI(TAG, "%s", startup_text.c_str());
     }
 
     this->rx_message_.clear();
