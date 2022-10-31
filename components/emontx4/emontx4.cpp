@@ -86,9 +86,9 @@ void Emontx4Component::handle_char_(uint8_t c) {
         this->json_string_ = s;
         parse_json_data_();
     } else { // Startup information
-        startup_text += s.c_str();
+        startup_text = startup_text + s; //s.c_str();
         // ESP_LOGI(TAG, "%s", s.c_str());
-        ESP_LOGI(TAG, "%s", startup_text);
+        ESP_LOGI(TAG, "%s", startup_text.c_str());
     }
 
     this->rx_message_.clear();
