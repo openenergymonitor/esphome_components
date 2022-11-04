@@ -58,6 +58,7 @@ class Emontx4Component : public Component, public uart::UARTDevice {
 
     std::vector<uint8_t> rx_message_;
     std::string json_string_;
+    std::string startup_text_ = "No EmonTX reboot";
 
     sensor::Sensor *message_number_sensor_{nullptr};
     sensor::Sensor *vrms_sensor_{nullptr};
