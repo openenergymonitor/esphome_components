@@ -6,69 +6,48 @@ namespace emontx4 {
 
 static const char *TAG = "emontx4";
 
-bool first_run = false;
+// bool first_run = false;
 std::string startup_text = "";
 
 void Emontx4Component::dump_config() {
-  ESP_LOGCONFIG(TAG, "Emontx4:");
-  LOG_SENSOR("  ", "Message Number", message_number_sensor_);
-  LOG_SENSOR("  ", "Vrms", vrms_sensor_);
-  LOG_SENSOR("  ", "P1", p1_sensor_);
-  LOG_SENSOR("  ", "P2", p2_sensor_);
-  LOG_SENSOR("  ", "P3", p3_sensor_);
-  LOG_SENSOR("  ", "P4", p4_sensor_);
-  LOG_SENSOR("  ", "P5", p5_sensor_);
-  LOG_SENSOR("  ", "P6", p6_sensor_);
-  LOG_SENSOR("  ", "P7", p7_sensor_);
-  LOG_SENSOR("  ", "P8", p8_sensor_);
-  LOG_SENSOR("  ", "P9", p9_sensor_);
-  LOG_SENSOR("  ", "P10", p10_sensor_);
-  LOG_SENSOR("  ", "P11", p11_sensor_);
-  LOG_SENSOR("  ", "P12", p12_sensor_);
-  LOG_SENSOR("  ", "E1", e1_sensor_);
-  LOG_SENSOR("  ", "E2", e2_sensor_);
-  LOG_SENSOR("  ", "E3", e3_sensor_);
-  LOG_SENSOR("  ", "E4", e4_sensor_);
-  LOG_SENSOR("  ", "E5", e5_sensor_);
-  LOG_SENSOR("  ", "E6", e6_sensor_);
-  LOG_SENSOR("  ", "E7", e7_sensor_);
-  LOG_SENSOR("  ", "E8", e8_sensor_);
-  LOG_SENSOR("  ", "E9", e9_sensor_);
-  LOG_SENSOR("  ", "E10", e10_sensor_);
-  LOG_SENSOR("  ", "E11", e11_sensor_);
-  LOG_SENSOR("  ", "E12", e12_sensor_);
-  LOG_SENSOR("  ", "Pulse Count", pulse_count_sensor_);
-  LOG_SENSOR("  ", "Pulse Energy", pulse_energy_sensor_);
-  LOG_SENSOR("  ", "T1", t1_sensor_);
-  LOG_SENSOR("  ", "T2", t2_sensor_);
-  LOG_SENSOR("  ", "T3", t3_sensor_);
+    ESP_LOGCONFIG(TAG, "Emontx4:");
+    LOG_SENSOR("  ", "Message Number", message_number_sensor_);
+    LOG_SENSOR("  ", "Vrms", vrms_sensor_);
+    LOG_SENSOR("  ", "P1", p1_sensor_);
+    LOG_SENSOR("  ", "P2", p2_sensor_);
+    LOG_SENSOR("  ", "P3", p3_sensor_);
+    LOG_SENSOR("  ", "P4", p4_sensor_);
+    LOG_SENSOR("  ", "P5", p5_sensor_);
+    LOG_SENSOR("  ", "P6", p6_sensor_);
+    LOG_SENSOR("  ", "P7", p7_sensor_);
+    LOG_SENSOR("  ", "P8", p8_sensor_);
+    LOG_SENSOR("  ", "P9", p9_sensor_);
+    LOG_SENSOR("  ", "P10", p10_sensor_);
+    LOG_SENSOR("  ", "P11", p11_sensor_);
+    LOG_SENSOR("  ", "P12", p12_sensor_);
+    LOG_SENSOR("  ", "E1", e1_sensor_);
+    LOG_SENSOR("  ", "E2", e2_sensor_);
+    LOG_SENSOR("  ", "E3", e3_sensor_);
+    LOG_SENSOR("  ", "E4", e4_sensor_);
+    LOG_SENSOR("  ", "E5", e5_sensor_);
+    LOG_SENSOR("  ", "E6", e6_sensor_);
+    LOG_SENSOR("  ", "E7", e7_sensor_);
+    LOG_SENSOR("  ", "E8", e8_sensor_);
+    LOG_SENSOR("  ", "E9", e9_sensor_);
+    LOG_SENSOR("  ", "E10", e10_sensor_);
+    LOG_SENSOR("  ", "E11", e11_sensor_);
+    LOG_SENSOR("  ", "E12", e12_sensor_);
+    LOG_SENSOR("  ", "Pulse Count", pulse_count_sensor_);
+    LOG_SENSOR("  ", "Pulse Energy", pulse_energy_sensor_);
+    LOG_SENSOR("  ", "T1", t1_sensor_);
+    LOG_SENSOR("  ", "T2", t2_sensor_);
+    LOG_SENSOR("  ", "T3", t3_sensor_);
 //   ESP_LOGI(TAG, startup_text.c_str());
 }
 
-// void Emontx4Component::setup() {
-//   do { } while ( !(this->available()) );
-// //   if (this->available()) {
-//     this->write_str("l");
-//     ESP_LOGD(TAG, "Write list command");
-// //   }
-// }
-
 void Emontx4Component::loop() {
-    // if (this->first_run)
-    // {
-    //     this->write_str("l");
-    //     ESP_LOGD(TAG, "Write list command");
-    //     this->first_run = false;
-    // }
 
     while (this->available()) {
-        // if (first_run)
-        // {
-        //     this->write_str("l");
-        //     ESP_LOGD(TAG, "Write list command");
-        //     first_run = false;
-        // }
-
         uint8_t c;
         this->read_byte(&c);
         this->handle_char_(c);
@@ -81,7 +60,7 @@ void Emontx4Component::handle_char_(uint8_t c) {
   if (c == '\n') {
     std::string s(this->rx_message_.begin(), this->rx_message_.end());
     char x = s[0];
-    if (x == '{') { // JSOn data string
+    if (x == '{') { // JSON data string
         ESP_LOGD(TAG, "JSON string received: %s", s.c_str());
         this->json_string_ = s;
         parse_json_data_();
