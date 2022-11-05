@@ -1,6 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
-from esphome.components import sensor, uart, json
+from esphome.components import sensor, uart #, json
+from esphome import automation
 from esphome.const import (
     CONF_ID,
     UNIT_VOLT,
@@ -9,12 +10,12 @@ from esphome.const import (
     UNIT_EMPTY,
     UNIT_WATT_HOURS,
     UNIT_PULSES,
-    ICON_CURRENT_AC,
-    ICON_FLASH,
-    ICON_THERMOMETER,
-    ICON_PERCENT,
-    ICON_EMPTY,
-    ICON_PULSE,
+    # ICON_CURRENT_AC,
+    # ICON_FLASH,
+    # ICON_THERMOMETER,
+    # ICON_PERCENT,
+    # ICON_EMPTY,
+    # ICON_PULSE,
     DEVICE_CLASS_VOLTAGE,
     DEVICE_CLASS_POWER,
     DEVICE_CLASS_ENERGY,
@@ -22,11 +23,8 @@ from esphome.const import (
     DEVICE_CLASS_EMPTY,
     STATE_CLASS_MEASUREMENT,
     STATE_CLASS_TOTAL_INCREASING,
-    CONF_TRIGGER_ID,
+    # CONF_TRIGGER_ID,
 )
-
-    # UNIT_PULSES,
-
 
 DEPENDENCIES = ["uart"]
 AUTO_LOAD = ["json"]
@@ -67,15 +65,14 @@ CONF_T2 = "t2"
 CONF_T3 = "t3"
 CONF_ON_DATA = "on_data"
 
-
 CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(Emontx4Component),
+            cv.Optional(CONF_ON_DATA): automation.validate_automation(single=True),
 
             cv.Optional(CONF_MSG_NUMBER): sensor.sensor_schema(
                 unit_of_measurement=UNIT_EMPTY,
-                # icon=ICON_EMPTY,
                 accuracy_decimals=0,
             ),
             cv.Optional(CONF_VRMS): sensor.sensor_schema(
@@ -259,11 +256,6 @@ CONFIG_SCHEMA = (
                 state_class=STATE_CLASS_MEASUREMENT,
                 accuracy_decimals=1,
             ),
-            # cv.Optional(CONF_ON_DATA): automation.validate_automation(
-            #         {
-            #             cv.GenerateID(CONF_TRIGGER_ID): cv.declare_id(nfc.NfcOnTagTrigger),
-            #         }
-            # ),
         }
     )
     .extend(cv.COMPONENT_SCHEMA)
@@ -402,6 +394,10 @@ async def to_code(config):
     if CONF_T3 in config:
         sens = await sensor.new_sensor(config[CONF_T3])
         cg.add(var.set_t3_sensor(sens))
-
-
+    
+    # Trigger definition, must be at the end of 'to_code'
+    if CONF_ON_DATA in config:
+        await automation.build_automation(
+            var.get_done_trigger(), [], config[CONF_ON_DATA]
+        )
 
