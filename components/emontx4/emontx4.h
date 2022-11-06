@@ -4,6 +4,7 @@
 #include "esphome/components/sensor/sensor.h"
 #include "esphome/components/uart/uart.h"
 #include "esphome/components/json/json_util.h"
+#include "esphome/core/automation.h"
 
 namespace esphome {
 namespace emontx4 {
@@ -42,6 +43,8 @@ class Emontx4Component : public Component, public uart::UARTDevice {
     void set_t2_sensor(sensor::Sensor *t2_sensor) { t2_sensor_ = t2_sensor; }
     void set_t3_sensor(sensor::Sensor *t3_sensor) { t3_sensor_ = t3_sensor; }
 
+    Trigger<> *get_done_trigger() const { return done_trigger_; }
+
     void dump_config() override;
     void loop() override;
 
@@ -49,10 +52,13 @@ class Emontx4Component : public Component, public uart::UARTDevice {
 
   protected:
     void parse_json_data_();
-
     void handle_char_(uint8_t c);
+
+    Trigger<> *done_trigger_ = new Trigger<>();
+
     std::vector<uint8_t> rx_message_;
     std::string json_string_;
+    std::string startup_text_ = "No EmonTX reboot";
 
     sensor::Sensor *message_number_sensor_{nullptr};
     sensor::Sensor *vrms_sensor_{nullptr};
@@ -86,11 +92,6 @@ class Emontx4Component : public Component, public uart::UARTDevice {
     sensor::Sensor *t2_sensor_{nullptr};
     sensor::Sensor *t3_sensor_{nullptr};
 };
-
-// class Emontx4OnDataTrigger {
-//   public:
-//     void process() { this->trigger(); }
-//   };
 
 }  // namespace emontx4
 }  // namespace esphome
